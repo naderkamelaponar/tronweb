@@ -20,14 +20,16 @@ const {
     COINMARKET_APIKEY
 }= require('../utils/constants');
 class DBConnection {
+    
     constructor() {
         this.db = mysql2.createPool({
             host: process.env.DB_HOST,
-            user: DB_USER,
-            password: DB_PASS,
-            database: DB_DATABASE
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: process.env.DB_DATABASE,
+            PORT:process.env.DB_PORT
         });
-
+        console.log("",process.env.DB_DATABASE,)
         this.checkConnection();
     }
 
@@ -41,6 +43,7 @@ class DBConnection {
                     console.error('Database has too many connections.');
                 }
                 if (err.code === 'ECONNREFUSED') {
+                    
                     console.error('Database connection was refused.');
                 }
             }
